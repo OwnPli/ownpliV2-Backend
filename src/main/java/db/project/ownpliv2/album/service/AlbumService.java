@@ -10,4 +10,8 @@ public class AlbumService {
 
     private final AlbumRepository albumRepository;
 
+    public void updateAlbum() {
+
+    }
+
 }

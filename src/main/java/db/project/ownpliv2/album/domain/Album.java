@@ -1,4 +1,4 @@
-package db.project.ownpliv2.album;
+package db.project.ownpliv2.album.domain;
 
 import db.project.ownpliv2.album.dto.AlbumMessage;
 import db.project.ownpliv2.common.domain.BaseEntity;
