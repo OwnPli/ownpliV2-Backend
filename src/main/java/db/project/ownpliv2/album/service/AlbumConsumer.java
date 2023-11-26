@@ -16,6 +16,6 @@ public class AlbumConsumer {
 
     @RabbitListener(queues = "${rabbitmq.album-queue-name}")
     public void consumeMenuMessage(@Valid AlbumMessage albumMessage) {
-        albumService.updateAlbum();
+        albumService.updateAlbum(albumMessage);
     }
 }
