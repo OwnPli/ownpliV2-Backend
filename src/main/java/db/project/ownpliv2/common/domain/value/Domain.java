@@ -4,4 +4,9 @@ public enum Domain {
 
     ALBUM, ARTIST, TRACK;
 
+
+    @Override
+    public String toString() {
+        return super.toString().toLowerCase();
+    }
 }

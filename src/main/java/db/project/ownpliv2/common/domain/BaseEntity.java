@@ -12,15 +12,14 @@ import java.util.UUID;
 
 @Getter
 @MappedSuperclass
-public abstract class BaseEntity implements Serializable {
+public class BaseEntity implements Serializable {
 
     @Id
     @Column(name = "id", updatable = false, unique = true, nullable = false, length = 60)
     private String id;
 
     protected BaseEntity(Domain domain) {
-        id = String.join("", domain.toString().toLowerCase(), "_",
-                UUID.randomUUID().toString().replace("-", ""));
+        id = String.join("", domain.toString(), "_", generateUUID());
     }
 
     @Override
@@ -34,5 +33,9 @@ public abstract class BaseEntity implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    private String generateUUID() {
+        return UUID.randomUUID().toString().replace("-", "");
     }
 }
