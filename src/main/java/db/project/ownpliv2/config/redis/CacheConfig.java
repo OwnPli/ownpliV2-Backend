@@ -1,5 +1,6 @@
 package db.project.ownpliv2.config.redis;
 
+import db.project.ownpliv2.common.domain.value.Domain;
 import org.springframework.boot.autoconfigure.cache.RedisCacheManagerBuilderCustomizer;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
@@ -19,33 +20,16 @@ public class CacheConfig {
     @Bean
     public RedisCacheConfiguration redisCacheConfiguration() {
         return RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofSeconds(60))
+                .entryTtl(Duration.from(Period.ofMonths(1)))
                 .disableCachingNullValues()
-                .serializeKeysWith(
-                        RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer())
-                )
-                .serializeValuesWith(
-                        RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer())
-                );
+                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()));
     }
 
     @Bean
     public RedisCacheManagerBuilderCustomizer redisCacheManagerBuilderCustomizer() {
         return (builder) -> builder
-                .withCacheConfiguration("cache1",
-                        RedisCacheConfiguration.defaultCacheConfig()
-                                .computePrefixWith(cacheName -> "prefix::" + cacheName + "::")
-                                .entryTtl(Duration.from(Period.ofMonths(1)))
-                                .disableCachingNullValues()
-                                .serializeKeysWith(
-                                        RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer())
-                                )
-                                .serializeValuesWith(
-                                        RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer())
-                                ))
-                .withCacheConfiguration("cache2",
-                        RedisCacheConfiguration.defaultCacheConfig()
-                                .entryTtl(Duration.from(Period.ofMonths(1)))
-                                .disableCachingNullValues());
+                .withCacheConfiguration(Domain.ALBUM.toString(), RedisCacheConfiguration.defaultCacheConfig())
+                .withCacheConfiguration(Domain.TRACK.toString(), RedisCacheConfiguration.defaultCacheConfig());
     }
 }
