@@ -8,6 +8,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.cglib.core.Local;
+
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "album")
@@ -18,6 +21,9 @@ public class Album extends BaseEntity {
     private String albumTitle;
 
     @Column(nullable = false)
+    private LocalDate releaseDate;
+
+    @Column(nullable = false)
     private String albumImage;
 
     protected Album() {
@@ -25,15 +31,17 @@ public class Album extends BaseEntity {
     }
 
     @Builder
-    public Album(String albumTitle, String albumImage) {
+    public Album(String albumTitle, LocalDate releaseDate, String albumImage) {
         super(Domain.ALBUM);
         this.albumTitle = albumTitle;
+        this.releaseDate = releaseDate;
         this.albumImage = albumImage;
     }
 
     public static Album of(AlbumMessage albumMessage) {
         return Album.builder()
                 .albumTitle(albumMessage.albumTitle())
+                .releaseDate(albumMessage.releaseDate())
                 .albumImage(albumMessage.image())
                 .build();
     }

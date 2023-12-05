@@ -7,6 +7,7 @@ import db.project.ownpliv2.artist.dto.ArtistMessage;
 import db.project.ownpliv2.repository.AlbumRepository;
 import db.project.ownpliv2.repository.ArtistRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,8 @@ public class AlbumService {
 
     private final AlbumRepository albumRepository;
     private final ArtistRepository artistRepository;
+
+    private final StringRedisTemplate albumStringRedisTemplate;
 
     //fixme
     public void updateAlbum(AlbumMessage albumMessage) {
