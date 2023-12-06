@@ -26,16 +26,20 @@ public class Album extends BaseEntity {
     @Column(nullable = false)
     private String albumImage;
 
+    @Column(nullable = false)
+    private String spotifyKey;
+
     protected Album() {
         super(Domain.ALBUM);
     }
 
     @Builder
-    public Album(String albumTitle, LocalDate releaseDate, String albumImage) {
+    public Album(String albumTitle, LocalDate releaseDate, String albumImage, String spotifyKey) {
         super(Domain.ALBUM);
         this.albumTitle = albumTitle;
         this.releaseDate = releaseDate;
         this.albumImage = albumImage;
+        this.spotifyKey = spotifyKey;
     }
 
     public static Album of(AlbumMessage albumMessage) {
@@ -43,6 +47,7 @@ public class Album extends BaseEntity {
                 .albumTitle(albumMessage.albumTitle())
                 .releaseDate(albumMessage.releaseDate())
                 .albumImage(albumMessage.image())
+                .spotifyKey(albumMessage.spotifyKey())
                 .build();
     }
 }
