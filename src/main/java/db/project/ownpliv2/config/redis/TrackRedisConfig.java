@@ -18,7 +18,7 @@ public class TrackRedisConfig extends RedisConfig {
 
     @Bean
     @Qualifier("albumRedisTemplate")
-    public RedisTemplate<String, Object> defaultRedisTemplate() {
+    public RedisTemplate<String, Object> trackRedisTemplate() {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(defaultRedisConnectionFactory());
         template.afterPropertiesSet();

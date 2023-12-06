@@ -20,7 +20,7 @@ public class AlbumRedisConfig extends RedisConfig {
 
     @Bean
     @Qualifier("albumRedisTemplate")
-    public RedisTemplate<String, Object> defaultRedisTemplate() {
+    public RedisTemplate<String, Object> albumRedisTemplate() {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(defaultRedisConnectionFactory());
         template.afterPropertiesSet();
