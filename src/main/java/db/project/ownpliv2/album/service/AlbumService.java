@@ -32,7 +32,7 @@ public class AlbumService {
                 .forEach(this::putAlbumMessageInCache);
     }
 
-    @Cacheable(value = "album", key = "")
+    @Cacheable(value = "album", key = "#album.spotifyKey")
     public AlbumMessage putAlbumMessageInCache(Album album) {
         return AlbumMessage.of(album);
     }
